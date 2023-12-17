@@ -5,7 +5,7 @@
 1. Clone the repository
 
 ```bash
-git clone https://github.com/RauhanAli/Zenith_Test_Dapp.git
+git clone https://github.com/RauhanAli/Zenith_Faucet_App.git
 ```
 
 2. Install the dependencies using either npm or yarn
