@@ -5,7 +5,7 @@
 1. Clone the repository
 
 ```bash
-git clone https://github.com/RauhanAli/Zenith_Test_Contract.git
+git clone https://github.com/RauhanAli/Zenith_Test_Dapp.git
 ```
 
 2. Install the dependencies using either npm or yarn
@@ -42,4 +42,19 @@ or simply type
 
 ```bash
 npm run build
+```
+
+## Repository Structure<a name="repository-structure"></a>
+
+```
+ponder-frontend
+│ README.md                   // you are here
+│ ...                         // setup and development configuration files
+├─── src                      // the contract code
+│   ├── assets                // assets directory for images and icons
+|   ├── components            // component directory
+|   ├── constants             // constants directory for constants files
+|   ├── redux                 // redux files directory for state managements
+|   ├── styles                // styles files of UI
+
 ```
