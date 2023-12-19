@@ -33,55 +33,83 @@ const Dashboard: FC = () => {
   const getBalance = async () => {
     let balanceFormated: any;
     //@ts-ignore
-    const ERC20 = new ethers.Contract(zenithToken, Token, signer);
-    const Balance = await ERC20.balanceOf(accountAddress);
-    balanceFormated = parseFloat(
-      (Number(Balance) / 10 ** 18)?.toString()
-    )?.toFixed(4);
+    try {
+      const ERC20 = new ethers.Contract(zenithToken, Token, signer);
+      const Balance = await ERC20.balanceOf(accountAddress);
+      balanceFormated = parseFloat(
+        (Number(Balance) / 10 ** 18)?.toString()
+      )?.toFixed(4);
 
-    setBalance(balanceFormated);
+      setBalance(balanceFormated);
+    } catch (error) {
+      setMessage({
+        title: 'Wallet:',
+        description: 'Metamask Issue',
+      });
+    }
   };
 
   const transfer = async (address: any, amount: number) => {
-    const zenithContract = new ethers.Contract(zenithToken, Token, signer);
-    let tx = await zenithContract.transfer(
-      address,
-      ethers.utils.parseEther(amount?.toString())
-    );
-    await tx.wait();
-    setMessage({
-      title: 'success',
-      description: 'Transferred Successfully',
-    });
-    // setRefresh((prev) => prev + 1);
+    try {
+      const zenithContract = new ethers.Contract(zenithToken, Token, signer);
+      let tx = await zenithContract.transfer(
+        address,
+        ethers.utils.parseEther(amount?.toString())
+      );
+      await tx.wait();
+      setMessage({
+        title: 'success',
+        description: 'Transferred Successfully',
+      });
+      setRefresh((prev) => prev + 1);
+    } catch (error) {
+      setMessage({
+        title: 'ERC20: ',
+        description: 'transfer amount exceeds balance',
+      });
+    }
   };
   const approve = async (address: any, amount: number) => {
-    //0xfb..26 approved to take money on my behalf
-    const zenithContract = new ethers.Contract(zenithToken, Token, signer);
-    let tx = await zenithContract.transfer(
-      address,
-      ethers.utils.parseEther(amount?.toString())
-    );
-    await tx.wait();
-    setMessage({
-      title: 'success',
-      description: 'Approved tokens successfully',
-    });
+    try {
+      //0xfb..26 approved to take money on my behalf
+      const zenithContract = new ethers.Contract(zenithToken, Token, signer);
+      let tx = await zenithContract.approve(
+        address,
+        ethers.utils.parseEther(amount?.toString())
+      );
+      await tx.wait();
+      setMessage({
+        title: 'success',
+        description: 'Approved tokens successfully',
+      });
+    } catch (error) {
+      setMessage({
+        title: 'ERC20:',
+        description: 'Approved tokens Fail',
+      });
+    }
   };
 
   const requestTokens = async () => {
-    const faucetContract = new ethers.Contract(faucetAddress, Faucet, signer);
-    faucetCalled = true;
-    let tx = await faucetContract.requestTokens({
-      gasLimit: 900000,
-    });
-    await tx.wait();
+    try {
+      const faucetContract = new ethers.Contract(faucetAddress, Faucet, signer);
+      faucetCalled = true;
+      let tx = await faucetContract.requestTokens({
+        gasLimit: 900000,
+      });
+      await tx.wait();
 
-    setMessage({
-      title: 'success',
-      description: 'Tokens Received successfully',
-    });
-    setRefresh((prev) => prev + 1);
+      setMessage({
+        title: 'success',
+        description: 'Tokens Received successfully',
+      });
+      setRefresh((prev) => prev + 1);
+    } catch (error) {
+      setMessage({
+        title: 'fail',
+        description: 'Next Time Not Reached',
+      });
+    }
   };
 
   const getNextBuyTime = async () => {

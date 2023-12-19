@@ -30,7 +30,7 @@ const Transaction: FC = () => {
         .slice(0, 10);
       const table = document.getElementById('transactionTable');
       //@ts-ignore
-      table.innerHTML = '<tr><th>From</th><th>Hash</th></tr>';
+      table.innerHTML = '<tr><th></th><th>Hash</th></tr>';
       latestTransactions.forEach((transaction: any) => {
         const row = `<tr><td>${'Transaction'}</td><td class="value">${transaction.hash}</td></tr>`;
         //@ts-ignore
@@ -45,7 +45,7 @@ const Transaction: FC = () => {
   getAllTokenTransactions();
 
   return (
-    <div className="body">
+    <div className="transaction-wrapper">
       <div id="wrapper">
         <table id="transactionTable">
           <tr>

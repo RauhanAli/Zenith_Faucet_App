@@ -7,10 +7,8 @@ const HomePage: FC = () => {
   return (
     <div className="text-center ">
       <NavBar />
-      <div className="float-left">
+      <div className="flex">
         <Dashboard />
-      </div>
-      <div>
         <Transaction />
       </div>
     </div>
